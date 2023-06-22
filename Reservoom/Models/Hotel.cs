@@ -20,9 +20,9 @@ namespace Reservoom.Models
         /// </summary>
         /// <param name="userName"></param>
         /// <returns>The reservations for the user.</returns>
-        public IEnumerable<Reservation> GetReservationsForUser(string userName)
+        public IEnumerable<Reservation> GetAllReservations()
         {
-            return _reservationBook.GetReservationsForUser(userName);
+            return _reservationBook.GetAllReservations();
         }
 
         /// <summary>
