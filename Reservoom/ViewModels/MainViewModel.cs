@@ -12,8 +12,8 @@ namespace Reservoom.ViewModels
 
         public MainViewModel() 
         {
-            //CurrentViewModel = new MakeReservationViewModel();
-            CurrentViewModel = new ReservationListingViewModel();
+            CurrentViewModel = new MakeReservationViewModel();
+            //CurrentViewModel = new ReservationListingViewModel();
         }
     }
 }
