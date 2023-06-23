@@ -8,10 +8,11 @@ namespace Reservoom.Models
         public string UserName { get; }
         public DateTime StartTime { get; }
         public DateTime EndTime { get; }
-        public TimeSpan Length => EndTime.Subtract(StartTime);
+        public TimeSpan Length { get { return EndTime.Subtract(StartTime); } }
 
         public Reservation(RoomID roomID, string userName, DateTime startTime, DateTime endTime) 
         { 
+            UserName = userName;
             RoomID = roomID;
             StartTime = startTime;
             EndTime = endTime;

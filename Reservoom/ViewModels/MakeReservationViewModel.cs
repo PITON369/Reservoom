@@ -9,31 +9,17 @@ namespace Reservoom.ViewModels
 {
     public class MakeReservationViewModel : ViewModelBase
     {
-        private string _username;
-        public string Username
+        private string _userName;
+        public string UserName
         {
             get 
             { 
-                return _username; 
+                return _userName; 
             }
             set 
             { 
-                _username = value; 
-                OnPropertyChanged(nameof(Username));
-            }
-        }
-
-        private int _roomNumber;
-        public int RoomNumber
-        {
-            get
-            {
-                return _roomNumber;
-            }
-            set
-            {
-                _roomNumber = value;
-                OnPropertyChanged(nameof(RoomNumber));
+                _userName = value; 
+                OnPropertyChanged(nameof(UserName));
             }
         }
 
@@ -50,7 +36,21 @@ namespace Reservoom.ViewModels
                 OnPropertyChanged(nameof(FloorNumber));
             }
         }
-    
+
+        private int _roomNumber;
+        public int RoomNumber
+        {
+            get
+            {
+                return _roomNumber;
+            }
+            set
+            {
+                _roomNumber = value;
+                OnPropertyChanged(nameof(RoomNumber));
+            }
+        }
+        
         private DateTime _startdate;
         public DateTime StartDate
         {
