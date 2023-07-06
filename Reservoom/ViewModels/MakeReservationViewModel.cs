@@ -1,4 +1,5 @@
 ﻿using Reservoom.Commands;
+using Reservoom.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,7 +53,7 @@ namespace Reservoom.ViewModels
             }
         }
         
-        private DateTime _startdate;
+        private DateTime _startdate = new DateTime(2022, 2, 2);
         public DateTime StartDate
         {
             get 
@@ -66,7 +67,7 @@ namespace Reservoom.ViewModels
             }
         }
 
-        private DateTime _endDate;
+        private DateTime _endDate = new DateTime(2022, 2, 4);
         public DateTime EndDate
         {
             get
@@ -83,9 +84,9 @@ namespace Reservoom.ViewModels
         public ICommand SubmitCommand { get; }
         public ICommand CancelCommand { get; }
 
-        public MakeReservationViewModel()
+        public MakeReservationViewModel(Hotel hotel)
         {
-            SubmitCommand = new MakeReservationCommand();
+            SubmitCommand = new MakeReservationCommand(this, hotel);
         }
     }
 }
