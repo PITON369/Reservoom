@@ -1,5 +1,6 @@
 ﻿using Reservoom.Exceptions;
 using Reservoom.Models;
+using Reservoom.Services;
 using Reservoom.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -15,18 +16,23 @@ namespace Reservoom.Commands
     {
         private readonly MakeReservationViewModel _makeReservationViewModel;
         private readonly Hotel _hotel;
+        private readonly NavigationService _reservationViewNavigationService;
 
-        public MakeReservationCommand(MakeReservationViewModel makeReservationViewModel, Hotel hotel)
+        public MakeReservationCommand(MakeReservationViewModel makeReservationViewModel, 
+            Hotel hotel,
+            NavigationService reservationViewNavigationService)
         {
             _makeReservationViewModel = makeReservationViewModel;
             _hotel = hotel;
-
+            _reservationViewNavigationService = reservationViewNavigationService;
             _makeReservationViewModel.PropertyChanged += OnViewModelPropertyChanged;
         }
 
         public override bool CanExecute(object? parameter)
         {
-            return !string.IsNullOrEmpty(_makeReservationViewModel.UserName) && base.CanExecute(parameter);
+            return !string.IsNullOrEmpty(_makeReservationViewModel.UserName) && 
+                _makeReservationViewModel.FloorNumber > 0 &&
+                base.CanExecute(parameter);
         }
 
         public override void Execute(object? parameter)
@@ -43,6 +49,8 @@ namespace Reservoom.Commands
 
                 MessageBox.Show("Successfully reserved room.", "Success",
                     MessageBoxButton.OK, MessageBoxImage.Information);
+
+                _reservationViewNavigationService.Navigate();
             }
             catch (ReservationConflictException)
             {
@@ -52,7 +60,8 @@ namespace Reservoom.Commands
         }
         private void OnViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(MakeReservationViewModel.UserName))
+            if (e.PropertyName == nameof(MakeReservationViewModel.UserName) ||
+                e.PropertyName == nameof(MakeReservationViewModel.FloorNumber))
             {
                 OnCanExecutedChanged();
             }
