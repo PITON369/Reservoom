@@ -12,9 +12,10 @@ namespace Reservoom.Stores
         private ViewModelBase _currentViewModel;
         public ViewModelBase CurrentViewModel
         {
-            get { return _currentViewModel; }
+            get => _currentViewModel;
             set
             {
+                _currentViewModel?.Dispose();
                 _currentViewModel = value;
                 OnCurrentViewModelChanged();
             }

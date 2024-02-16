@@ -14,7 +14,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Reservoom
@@ -27,6 +26,7 @@ namespace Reservoom
         private const string CONNECTION_STRING = "Data Source=reservoom.db";
 
         private readonly Hotel _hotel;
+        private readonly HotelStore _hotelStore;
         private readonly NavigationStore _navigationStore;
         private readonly ReservoomDbContextFactory _reservoomDbContextFactory;
 
@@ -40,6 +40,7 @@ namespace Reservoom
             ReservationBook reservationBook = new ReservationBook(reservationProvider, reservationCreator, reservationConflictValidator);
 
             _hotel = new Hotel("SingletonSean Suites", reservationBook);
+            _hotelStore = new HotelStore(_hotel);
             _navigationStore = new NavigationStore();
         }
 
@@ -63,12 +64,12 @@ namespace Reservoom
 
         private MakeReservationViewModel CreateMakeReservationViewModel()
         {
-            return new MakeReservationViewModel(_hotel, new NavigationService(_navigationStore, CreateReservationViewModel));
+            return new MakeReservationViewModel(_hotelStore, new NavigationService(_navigationStore, CreateReservationViewModel));
         }
 
         private ReservationListingViewModel CreateReservationViewModel()
         {
-            return ReservationListingViewModel.LoadViewModel(_hotel, new NavigationService(_navigationStore, CreateMakeReservationViewModel));
+            return ReservationListingViewModel.LoadViewModel(_hotelStore, new NavigationService(_navigationStore, CreateMakeReservationViewModel));
         }
     }
 }

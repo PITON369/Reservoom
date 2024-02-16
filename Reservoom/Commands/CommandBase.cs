@@ -16,7 +16,7 @@ namespace Reservoom.Commands
             return true;
         }
 
-        public abstract void Execute(object? parameter);        
+        public abstract void Execute(object? parameter);
 
         protected void OnCanExecutedChanged()
         {
